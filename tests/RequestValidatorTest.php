@@ -8,6 +8,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Spectator\Middleware;
 use Spectator\Spectator;
 use Spectator\SpectatorServiceProvider;
@@ -222,9 +223,7 @@ class RequestValidatorTest extends TestCase
             ->assertValidRequest();
     }
 
-    /**
-     * @dataProvider nullableProvider
-     */
+    #[DataProvider('nullableProvider')]
     public function test_handle_nullables($version, $state, $isValid): void
     {
         Spectator::using("Nullable.$version.json");
@@ -322,9 +321,7 @@ class RequestValidatorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider oneOfSchemaProvider
-     */
+    #[DataProvider('oneOfSchemaProvider')]
     // https://swagger.io/docs/specification/data-models/oneof-anyof-allof-not/
     public function test_handles_one_of($payload, $isValid): void
     {
@@ -382,9 +379,7 @@ class RequestValidatorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider anyOfSchemaProvider
-     */
+    #[DataProvider('anyOfSchemaProvider')]
     // https://swagger.io/docs/specification/data-models/oneof-anyof-allof-not/
     public function test_handles_any_of($payload, $isValid): void
     {
@@ -440,9 +435,7 @@ class RequestValidatorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider allOfSchemaProvider
-     */
+    #[DataProvider('allOfSchemaProvider')]
     // https://swagger.io/docs/specification/data-models/oneof-anyof-allof-not/
     public function test_handles_all_of($payload, $isValid): void
     {
@@ -682,9 +675,7 @@ class RequestValidatorTest extends TestCase
             ->assertValidRequest();
     }
 
-    /**
-     * @dataProvider nullableObjectProvider
-     */
+    #[DataProvider('nullableObjectProvider')]
     public function test_nullable_object($payload, $isValid): void
     {
         Spectator::using('Nullable-Object.yml');
@@ -730,9 +721,7 @@ class RequestValidatorTest extends TestCase
             ->assertValidResponse();
     }
 
-    /**
-     * @dataProvider booleanProvider
-     */
+    #[DataProvider('booleanProvider')]
     public function test_boolean_values($value, $isValid)
     {
         Spectator::using('Boolean.v1.json');
@@ -836,9 +825,7 @@ class RequestValidatorTest extends TestCase
             ->assertValidResponse();
     }
 
-    /**
-     * @dataProvider requiredReadOnlySchemaProvider
-     */
+    #[DataProvider('requiredReadOnlySchemaProvider')]
     public function test_required_readonly(
         $payload,
         $is_valid
@@ -907,9 +894,7 @@ class RequestValidatorTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider enumProvider
-     */
+    #[DataProvider('enumProvider')]
     public function test_enum_in_path(string $type, bool $isValid): void
     {
         Spectator::using('Enum.yml');
@@ -927,9 +912,7 @@ class RequestValidatorTest extends TestCase
         }
     }
 
-    /**
-     * @dataProvider enumProvider
-     */
+    #[DataProvider('enumProvider')]
     public function test_enum_in_path_via_reference(string $type, bool $isValid): void
     {
         Spectator::using('Enum.yml');

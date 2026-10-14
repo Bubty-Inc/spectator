@@ -25,6 +25,8 @@ abstract class TestCase extends Orchestra
     {
         parent::setUp();
 
+        config()->set('spectator.sources.local.base_path', __DIR__.'/Fixtures');
+
         $this->withoutExceptionHandling();
     }
 }
